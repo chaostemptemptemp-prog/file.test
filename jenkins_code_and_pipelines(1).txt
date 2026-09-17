@@ -1,0 +1,229 @@
+================================================================================
+SECTION 1: PYTHON SCRIPTS
+================================================================================
+
+1.1 Parameterized Addition Script (add.py)
+--------------------------------------------------------------------------------
+import sys
+
+def add_numbers(a, b):
+    return a + b
+
+if __name__ == "__main__":
+    num1 = int(sys.argv[1])
+    num2 = int(sys.argv[2])
+    result = add_numbers(num1, num2)
+    print("=======")
+    print("Addition Result")
+    print("=======")
+    print(f"First Number: {num1}")
+    print(f"Second Number: {num2}")
+    print(f"Sum: {result}")
+
+
+1.2 Hardcoded Addition Script (addition.py)
+--------------------------------------------------------------------------------
+a = 10
+b = 20
+result = a + b
+print("First Number:", a)
+print("Second Number:", b)
+print("Sum:", result)
+
+
+================================================================================
+SECTION 2: JENKINS PIPELINE SCRIPTS (DECLARATIVE PIPELINES)
+================================================================================
+
+2.1 Addition Pipeline with Parameters (Pipeline + Python + BAT)
+--------------------------------------------------------------------------------
+pipeline {
+    agent any
+    parameters {
+        string(name: 'BRANCH_NAME', defaultValue: 'main', description: 'Git branch')
+        string(name: 'NUM1', defaultValue: '10', description: 'First Number')
+        string(name: 'NUM2', defaultValue: '20', description: 'Second Number')
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: "${params.BRANCH_NAME}", url: 'https://github.com/Ramlingams/pipeline-parameters.git'
+            }
+        }
+        stage('Addition Build') {
+            steps {
+                bat "python add.py ${params.NUM1} ${params.NUM2}"
+            }
+        }
+    }
+}
+
+
+2.2 Pipeline Task 1: Checkout Code and Show Files
+--------------------------------------------------------------------------------
+pipeline {
+    agent any
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git 'https://github.com/your-username/your-repo.git'
+            }
+        }
+        stage('Show Files') {
+            steps {
+                bat 'dir'
+            }
+        }
+    }
+}
+
+
+2.3 Pipeline Task 2: Checkout Code and Print Working Directory
+--------------------------------------------------------------------------------
+pipeline {
+    agent any
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git 'https://github.com/your-username/your-repo.git'
+            }
+        }
+        stage('Print Directory') {
+            steps {
+                bat 'cd'
+            }
+        }
+    }
+}
+
+
+2.4 Pipeline Task 3: Checkout Code and Print Message
+--------------------------------------------------------------------------------
+pipeline {
+    agent any
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git 'https://github.com/your-username/your-repo.git'
+            }
+        }
+        stage('Print Message') {
+            steps {
+                echo 'Hello! Jenkins Pipeline executed successfully'
+            }
+        }
+    }
+}
+
+
+2.5 Pipeline Task 4: Checkout Code and Create File
+--------------------------------------------------------------------------------
+pipeline {
+    agent any
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git 'https://github.com/your-username/your-repo.git'
+            }
+        }
+        stage('Create File') {
+            steps {
+                bat 'echo This file is created by Jenkins > demo.txt'
+            }
+        }
+    }
+}
+
+
+2.6 Pipeline Task 5: Checkout Code and Read File
+--------------------------------------------------------------------------------
+pipeline {
+    agent any
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git 'https://github.com/your-username/your-repo.git'
+            }
+        }
+        stage('Read File') {
+            steps {
+                bat 'type README.md'
+            }
+        }
+    }
+}
+
+
+================================================================================
+SECTION 3: JENKINS FREESTYLE PROJECT STEPS & COMMANDS
+================================================================================
+
+3.1 Git & Local Commands
+--------------------------------------------------------------------------------
+# Run locally
+python addition.py
+
+# Git repository initialization and push
+git init
+git add addition.py
+git commit -m "Add Python addition program"
+git branch -M main
+git remote add origin YOUR_REPOSITORY_URL
+git push -u origin main
+
+# Branch management demonstration
+git checkout -b develop
+git push -u origin develop
+
+
+3.2 Build Commands (Windows Batch Command Step)
+--------------------------------------------------------------------------------
+echo =======
+echo PYTHON ADDITION BUILD
+echo =======
+python --version
+python addition.py
+
+
+3.3 Jenkins Freestyle Job Configuration Summary
+--------------------------------------------------------------------------------
+Job Name: Python-Addition-SCM
+Project Type: Freestyle project
+
+Source Code Management:
+  - SCM: Git
+  - Repository URL: https://github.com/YOUR_USERNAME/jenkins-addition-demo.git
+  - Branch to build: */main (or */develop)
+
+Build Triggers:
+  - Poll SCM: Enabled
+  - Schedule: H/5  (Polls repository every ~5 minutes)
+
+Build Step:
+  - Command: Execute Windows batch command
+  - Script:
+      echo =======
+      echo PYTHON ADDITION BUILD
+      echo =======
+      python --version
+      python addition.py
+
+
+
+
+
+      Important Extras 
+      --------------------------------------------------------------------------------
+      git init 
+      git add .
+      git commit -m "Initial commit"
+      git branch -M main
+      git config --global user.name "chaostemptemptemp-prog"
+      git config --global user.email "chaos.temp.temp.temp@gmail.com"
+      git remote add origin REMOTE-URL
+      git push -u origin main
+      git clone url
+      git log --oneline 
+      git log --graph --all
+      
+      
